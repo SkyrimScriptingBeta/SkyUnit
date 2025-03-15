@@ -1,3 +1,5 @@
 skse_plugin({
-    name = "SkyUnit", basename = "!!!SkyUnit"
+    name = "SkyUnit",
+    basename = "!!!SkyUnit",
+    deps = {"SkyUnit"}
 })

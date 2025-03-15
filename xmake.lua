@@ -9,6 +9,7 @@ add_repositories("SkyrimScriptingBeta https://github.com/SkyrimScriptingBeta/Pac
 add_repositories("MrowrLib https://github.com/MrowrLib/Packages.git")
 
 includes("xmake/*.lua")
+includes("SkyUnit.API/*.lua")
 
 option("build_plugin")
     set_default(true)

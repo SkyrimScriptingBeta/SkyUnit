@@ -1,4 +1,5 @@
 skse_plugin({
     name = "Example using CommonLib",
-    basename = "ExampleUsingCommonLib.SkyUnitTest"
+    basename = "ExampleUsingCommonLib.SkyUnitTest",
+    deps = {"SkyUnit"}
 })
