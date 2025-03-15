@@ -1,4 +1,3 @@
-#include <ExampleStaticLibrary.h>
 #include <RE/Skyrim.h>
 #include <SKSE/SKSE.h>
 
@@ -11,9 +10,7 @@ extern "C" __declspec(dllexport) bool SKSEPlugin_Load(const SKSE::LoadInterface*
         "SKSE",
         [](SKSE::MessagingInterface::Message* a_msg) {
             if (a_msg->type == SKSE::MessagingInterface::kDataLoaded) {
-                ExampleStaticLibrary::ExampleClass instance;
-                auto                               someNumber = instance.GetNumber();
-                instance.PrintToConsole(std::format("Hello, world! The number is: {}", someNumber));
+                //
             }
         }
     );

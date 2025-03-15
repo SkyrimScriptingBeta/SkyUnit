@@ -4,22 +4,24 @@ add_rules("mode.release", "mode.debug")
 
 set_languages("c++23")
 
--- Define an option for CommonLib (so users can override it)
-option("commonlib")
-    set_default(nil)
-    set_showmenu(true)
-    set_description("Which CommonLib package to use")
-option_end()
+add_repositories("SkyrimScripting https://github.com/SkyrimScripting/Packages.git")
+add_repositories("SkyrimScriptingBeta https://github.com/SkyrimScriptingBeta/Packages.git")
+add_repositories("MrowrLib https://github.com/MrowrLib/Packages.git")
 
-option("build_example")
-    set_description("Enable development tools (not installed with the package)")
-    set_default(false) -- This ensures it is OFF unless explicitly enabled
-option_end()
+includes("xmake/*.lua")
 
-includes("ExampleStaticLibrary/xmake.lua")
+option("build_plugin")
+    set_default(true)
+    
+option("build_examples")
+    set_default(true)
 
-if has_config("build_example") then
-    print("Building example")
-    -- includes("papyrus.lua")
-    includes("skse.lua")
+skyrim_versions = {"ng"}
+
+if has_config("build_plugin") then
+    includes("SkyUnit.Plugin/xmake.lua")
+end
+
+if has_config("build_examples") then
+    includes("ExampleTestSuites/*/xmake.lua")
 end
