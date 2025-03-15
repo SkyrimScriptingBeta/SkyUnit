@@ -22,12 +22,12 @@ function skse_plugin(mod_info)
 
     for _, game_version in ipairs(skyrim_versions) do
         add_requires("skyrim-commonlib-" .. game_version)
-        -- add_requires("SkyrimScripting.Plugin", { configs = {
-        --     commonlib = "skyrim-commonlib-" .. game_version,
-        --     use_log_library = true,
-        --     use_skyrimscripting_logging = true,
-        --     use_skse_plugin_info_library = true
-        -- }})
+        add_requires("SkyrimScripting.Plugin", { configs = {
+            commonlib = "skyrim-commonlib-" .. game_version,
+            use_log_library = true,
+            use_skyrimscripting_logging = true,
+            use_skse_plugin_info_library = true
+        }})
     end
 
     for _, game_version in ipairs(skyrim_versions) do
@@ -50,11 +50,11 @@ function skse_plugin(mod_info)
             for _, package in ipairs(mod_info.packages or {}) do
                 add_packages(package)
             end
-            -- add_packages("SkyrimScripting.Plugin", { configs = {
-            --     commonlib = "skyrim-commonlib-" .. game_version,
-            --     use_log_library = true,
-            --     use_skyrimscripting_logging = true,
-            --     use_skse_plugin_info_library = true
-            -- }})
+            add_packages("SkyrimScripting.Plugin", { configs = {
+                commonlib = "skyrim-commonlib-" .. game_version,
+                use_log_library = true,
+                use_skyrimscripting_logging = true,
+                use_skse_plugin_info_library = true
+            }})
     end
 end
