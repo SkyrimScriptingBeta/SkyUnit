@@ -23,6 +23,8 @@ includes("xmake/*.lua")
 
 add_requires("skyrim-commonlib-ae")
 add_requires("SkyrimScripting.Plugin", { configs = { commonlib = get_config("commonlib") } })
+add_requires("nlohmann_json")
+add_requires("catch2")
 
 includes("examples/*/xmake.lua")
 
