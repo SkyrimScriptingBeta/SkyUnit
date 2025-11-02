@@ -51,6 +51,14 @@
             },
             version = "4.0.3"
         },
+        ["cpptrace #f56260b5"] = {
+            repo = {
+                branch = "master",
+                commit = "1bf8339aa237915e72d3a46db51898bd94be7217",
+                url = "https://github.com/xmake-io/xmake-repo.git"
+            },
+            version = "v1.0.4"
+        },
         ["fmt#66eaa3b0"] = {
             repo = {
                 branch = "master",
@@ -66,6 +74,22 @@
                 url = "https://github.com/MrowrLib/Packages.git"
             },
             version = "@default"
+        },
+        ["libassert#f56260b5"] = {
+            repo = {
+                branch = "master",
+                commit = "1bf8339aa237915e72d3a46db51898bd94be7217",
+                url = "https://github.com/xmake-io/xmake-repo.git"
+            },
+            version = "v2.2.1"
+        },
+        ["magic_enum#f56260b5"] = {
+            repo = {
+                branch = "master",
+                commit = "1bf8339aa237915e72d3a46db51898bd94be7217",
+                url = "https://github.com/xmake-io/xmake-repo.git"
+            },
+            version = "v0.9.7"
         },
         ["ninja#f56260b5"] = {
             repo = {
@@ -106,6 +130,14 @@
                 url = "https://github.com/SkyrimScripting/Packages.git"
             },
             version = "@default"
+        },
+        ["snowhouse#f56260b5"] = {
+            repo = {
+                branch = "master",
+                commit = "1bf8339aa237915e72d3a46db51898bd94be7217",
+                url = "https://github.com/xmake-io/xmake-repo.git"
+            },
+            version = "v5.0.0"
         },
         ["spdlog#34081992"] = {
             repo = {

@@ -19,14 +19,13 @@ add_repositories("SkyrimScripting     https://github.com/SkyrimScripting/Package
 add_repositories("SkyrimScriptingBeta https://github.com/SkyrimScriptingBeta/Packages.git")
 add_repositories("MrowrLib            https://github.com/MrowrLib/Packages.git")
 
-includes("xmake/*.lua")
-
 add_requires("skyrim-commonlib-ae")
 add_requires("SkyrimScripting.Plugin", { configs = { commonlib = get_config("commonlib") } })
-add_requires("nlohmann_json")
-add_requires("catch2")
+add_requires("catch2", "nlohmann_json", "libassert", "snowhouse")
 
-includes("examples/*/xmake.lua")
+includes("xmake/*.lua")
+includes("cpp_libraries/**/xmake.lua")
+includes("examples/**/xmake.lua")
 
 -- add_requires(
 --     "collections",
