@@ -1,3 +1,0 @@
-#include <SkyrimScripting/Plugin.h>
-
-// _SKSE ....

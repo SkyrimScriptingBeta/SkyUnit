@@ -1,28 +1,48 @@
--- xmake config --build_example=y --commonlib=skyrim-commonlib-ae
+-- local name = "SkyUnit"
 
-add_rules("mode.release", "mode.debug")
+add_rules("mode.debug")
+set_defaultmode("mode.debug")
 
 set_languages("c++23")
 
-add_repositories("SkyrimScripting https://github.com/SkyrimScripting/Packages.git")
+set_policy("package.requires_lock", true)
+
+option("commonlib")
+    set_default("skyrim-commonlib-ae")
+option_end()
+
+if not has_config("commonlib") then
+    return
+end
+
+add_repositories("SkyrimScripting     https://github.com/SkyrimScripting/Packages.git")
 add_repositories("SkyrimScriptingBeta https://github.com/SkyrimScriptingBeta/Packages.git")
-add_repositories("MrowrLib https://github.com/MrowrLib/Packages.git")
+add_repositories("MrowrLib            https://github.com/MrowrLib/Packages.git")
 
 includes("xmake/*.lua")
-includes("SkyUnit.API/*.lua")
 
-option("build_plugin")
-    set_default(true)
+add_requires("skyrim-commonlib-ae")
+add_requires("SkyrimScripting.Plugin", { configs = { commonlib = get_config("commonlib") } })
+
+includes("examples/*/xmake.lua")
+
+-- add_requires(
+--     "collections",
+--     "unordered_dense",
+--     "nlohmann_json",
+--     "toml++"
+-- )
+
+-- target("Build Papyrus Scripts")
+--     set_kind("phony")
+--     compile_papyrus_scripts()
     
-option("build_examples")
-    set_default(true)
-
-skyrim_versions = {"ng"}
-
-if has_config("build_plugin") then
-    includes("SkyUnit.Plugin/xmake.lua")
-end
-
-if has_config("build_examples") then
-    includes("ExampleTestSuites/*/xmake.lua")
-end
+-- skse_plugin({
+--     name = "One Hundred Percent",
+--     version = "1.0.3",
+--     author = "Mrowr Purr",
+--     email = "mrowr.purr@gmail.com",
+--     mod_files = {"Scripts", "OneHundredPercent.esp", "SKSE"},
+--     deps = {"Build Papyrus Scripts"},
+--     packages = {"SkyrimScripting.Plugin", "collections", "unordered_dense", "nlohmann_json", "toml++"},
+-- })

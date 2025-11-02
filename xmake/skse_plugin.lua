@@ -1,60 +1,35 @@
-function skse_plugin(mod_info)
+function skse_plugin(plugin_info)
+    local commonlib_version = get_config("commonlib"):match("skyrim%-commonlib%-(.*)")
     local mods_folders = os.getenv("SKYRIM_MODS_FOLDERS")
 
-    local mod_info_defaults = {
-        version = "0.0.1",
-        author = "Mrowr Purr",
-        email = "mrowr.purr@gmail.com"
-    }
-
-    mod_info.version = mod_info.version or mod_info_defaults.version
-    mod_info.author = mod_info.author or mod_info_defaults.author
-    mod_info.email = mod_info.email or mod_info_defaults.email
-    mod_info.mod_files = mod_info.mod_files or mod_info_defaults.mod_files
-
     if mods_folders then
-        mod_info.mods_folders = mods_folders
+        plugin_info.mods_folders = mods_folders
     else
         print("SKYRIM_MODS_FOLDERS environment variable not set")
     end
-
-    print("Skyrim versions to build for: " .. table.concat(skyrim_versions, ", "))
-
-    for _, game_version in ipairs(skyrim_versions) do
-        add_requires("skyrim-commonlib-" .. game_version)
-        add_requires("SkyrimScripting.Plugin", { configs = {
-            commonlib = "skyrim-commonlib-" .. game_version,
-            use_log_library = true,
-            use_skyrimscripting_logging = true,
-            use_skse_plugin_info_library = true
-        }})
-    end
-
-    for _, game_version in ipairs(skyrim_versions) do
-        target("SKSE Plugin - " .. mod_info.name .. " - " .. game_version:upper())
-            set_basename((mod_info.basename or mod_info.name) .. "-" .. game_version:upper())
-            add_files("*.cpp")
-            add_packages("skyrim-commonlib-" .. game_version)
-            add_rules("@skyrim-commonlib-" .. game_version .. "/plugin", {
-                mod_name = mod_info.name .. " (" .. game_version:upper() .. ")",
-                mods_folders = mod_info.mods_folders or "",
-                mod_files = mod_info.mod_files or {},
-                name = mod_info.name,
-                version = mod_info.version,
-                author = mod_info.author,
-                email = mod_info.email
-            })
-            for _, dep in ipairs(mod_info.deps or {}) do
-                add_deps(dep)
-            end
-            for _, package in ipairs(mod_info.packages or {}) do
-                add_packages(package)
-            end
-            add_packages("SkyrimScripting.Plugin", { configs = {
-                commonlib = "skyrim-commonlib-" .. game_version,
-                use_log_library = true,
-                use_skyrimscripting_logging = true,
-                use_skse_plugin_info_library = true
-            }})
-    end
+    
+    target(plugin_info.name .. " (" .. commonlib_version:upper() .. ")")
+        set_basename(plugin_info.name .. "-" .. commonlib_version:upper())
+        add_packages("skyrim-commonlib-" .. commonlib_version)
+        add_rules("@skyrim-commonlib-" .. commonlib_version .. "/plugin", {
+            mod_name = plugin_info.name .. " (" .. commonlib_version:upper() .. ")",
+            mods_folders = plugin_info.mods_folders or "",
+            mod_files = plugin_info.mod_files,
+            name = plugin_info.name,
+            version = plugin_info.version,
+            author = plugin_info.author,
+            email = plugin_info.email
+        })
+        for _, src in ipairs(plugin_info.src or {}) do
+            add_files(src)
+        end
+        for _, include_dir in ipairs(plugin_info.include or {}) do
+            add_includedirs(include_dir)
+        end
+        for _, package in ipairs(plugin_info.packages or {}) do
+            add_packages(package)
+        end
+        for _, dependency in ipairs(plugin_info.deps or {}) do
+            add_deps(dependency)
+        end
 end
